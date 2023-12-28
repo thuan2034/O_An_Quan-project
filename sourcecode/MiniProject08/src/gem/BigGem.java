@@ -1,11 +1,10 @@
 package gem;
 
 public class BigGem extends Gem{
-		private int point = 5;
+		
 		public BigGem() {
-			
+			super();
+			point = 5;
 		}
-		public int getPoint() {
-			return point;
-		}
+		
 }

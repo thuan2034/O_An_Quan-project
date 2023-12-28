@@ -8,13 +8,16 @@ public class HalfCircle extends Squares{
 		super();
 	}
 	
+	public void resetNumberOfGems(){
+		numberOfBigGems = 0;
+	}
+	
+	@Override
 	public int getPoint() {
 		BigGem bigGem = new BigGem();
 		SmallGem smallGem = new SmallGem();
 		int point = numberOfBigGems*bigGem.getPoint() +
 				numberOfSmallGems*smallGem.getPoint();
-		numberOfBigGems = 0;	
-		numberOfSmallGems = 0;	
 		return point;
 	}
 	

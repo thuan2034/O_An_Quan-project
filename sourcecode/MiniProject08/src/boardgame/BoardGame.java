@@ -8,20 +8,15 @@ public class BoardGame {
 	
 	public BoardGame() {
 		//prepare gems to play
-		HalfCircle halfCircle = new HalfCircle();
-		NormalSquare normalSquare = new NormalSquare();
-		row.add(halfCircle);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(halfCircle);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
-		row.add(normalSquare);
+		for (int i=1; i<=12; i++){
+			HalfCircle halfCircle = new HalfCircle();
+			NormalSquare normalSquare = new NormalSquare();
+			if (i == 1 || i == 7){
+				row.set(i, halfCircle);
+			}
+			else row.set(i,normalSquare); 
+		}
+
 
 	}
 	
