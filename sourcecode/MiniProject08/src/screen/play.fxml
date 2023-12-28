@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="200.0" layoutY="30.0" prefHeight="715.0" prefWidth="604.0" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <AnchorPane prefHeight="125.0" prefWidth="600.0" scaleShape="false" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="65.0" fitWidth="75.0" layoutX="268.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="44.0">
+                     <image>
+                        <Image url="@385465003_1388000905463367_2779568532882496250_n.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutY="15.0" prefHeight="21.0" prefWidth="600.0" text="Player 1" AnchorPane.topAnchor="15.0" />
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="155.0" prefWidth="600.0" scaleShape="false" BorderPane.alignment="CENTER">
+               <children>
+                  <Group layoutX="75.0" layoutY="63.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Arc fill="#cda180" layoutX="38.0" layoutY="12.0" length="180.0" radiusX="75.0" radiusY="75.0" startAngle="90.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" type="ROUND" />
+                        <Arc fill="#cda180" layoutX="412.0" layoutY="12.0" length="180.0" radiusX="75.0" radiusY="75.0" startAngle="270.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" type="ROUND" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="187.0" layoutY="11.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="37.0" layoutY="-63.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="37.0" layoutY="12.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="112.0" layoutY="12.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="262.0" layoutY="12.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="112.0" layoutY="-63.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="337.0" layoutY="12.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="187.0" layoutY="-63.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="337.0" layoutY="-63.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cda180" height="75.0" layoutX="262.0" layoutY="-63.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" width="75.0" />
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <AnchorPane prefHeight="125.0" prefWidth="600.0" scaleShape="false" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="65.0" fitWidth="75.0" layoutX="268.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@353021191_1332904940972964_439635488748778428_n.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutY="93.0" prefHeight="21.0" prefWidth="600.0" text="Player 2" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                     <image>
+                        <Image url="@ExpandArrow.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Ellipse fill="#cda180" layoutX="416.0" layoutY="50.0" radiusX="67.0" radiusY="32.0" stroke="#664228" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
