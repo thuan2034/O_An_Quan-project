@@ -1,25 +1,25 @@
 package squares;
 
 
-
 public abstract class Squares {
-	private int point;
-	private int id;
+	
+	
 	private static int numberOfSquares = 0;
-	private int numberOfSmallGems;
+	private int numberOfSmallGems = 0;
 
 
 	public Squares() {
-		this.id = numberOfSquares++;
+		numberOfSquares++;
 	}
 	
-	public int getPoint() {
-		return point;
-	}
+	public abstract int getPoint();
 	
 	public void spreadGems() {
 		numberOfSmallGems++;
 	}
 	
+	public void resetNumberOfGems(){
+		numberOfSmallGems = 0;
+	}
 
 }
