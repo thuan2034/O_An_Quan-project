@@ -43,11 +43,11 @@ public class MenuScreen extends Application{
 				}
 				
 			});
+			
 			scene.heightProperty().addListener(new ChangeListener<Number>() {
 				@Override
 				public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 					height = scene.getHeight()/400.0;
-					System.out.println(""+height);
 					if(height>1) scale.setY(height);
 				}
 				
