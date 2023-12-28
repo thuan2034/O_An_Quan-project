@@ -11,15 +11,13 @@ public class NormalSquare extends Squares{
 	
 	public int getNumberOfSmallGems() {
 		int tmp = numberOfSmallGems;
-		numberOfSmallGems = 0;
 		return tmp;
 	}
-	
+
 	@Override
 	public int getPoint() {
-		int tmp = numberOfSmallGems;
 		SmallGem smallGem = new SmallGem();
-		int point = smallGem.getPoint()*numberOfSmallGems;
-		return point * tmp;
+		return smallGem.getPoint()*numberOfSmallGems;
+		
 	}
 }

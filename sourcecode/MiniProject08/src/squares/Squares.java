@@ -5,8 +5,8 @@ public abstract class Squares {
 	
 	
 	private static int numberOfSquares = 0;
-	private int numberOfSmallGems = 0;
-
+	protected int numberOfSmallGems;
+	protected int id = numberOfSquares;
 
 	public Squares() {
 		numberOfSquares++;
