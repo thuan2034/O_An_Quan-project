@@ -1,20 +1,18 @@
 package squares;
 
-import gem.*;
+
 
 public abstract class Squares {
-	public int point;
+	private int point;
 	private int id;
+	private static int numberOfSquares = 0;
 	private int numberOfSmallGems;
 
 
-	public Squares(int id) {
-		this.id = id;
+	public Squares() {
+		this.id = numberOfSquares++;
 	}
 	
-	public int getId() {
-		return id % 12;
-	}
 	public int getPoint() {
 		return point;
 	}

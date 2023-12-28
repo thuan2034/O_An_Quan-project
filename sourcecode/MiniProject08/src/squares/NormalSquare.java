@@ -2,10 +2,11 @@ package squares;
 import gem.*;
 
 public class NormalSquare extends Squares{
+
 	private int numberOfSmallGems = 5;
 	
-	public NormalSquare(int id) {
-		super(id);
+	public NormalSquare() {
+		super();
 	}
 	
 	public int getNumberOfSmallGems() {

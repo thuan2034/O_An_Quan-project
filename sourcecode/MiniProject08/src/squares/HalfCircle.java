@@ -1,10 +1,11 @@
 package squares;
 import gem.*;
 public class HalfCircle extends Squares{
+
 	private int numberOfBigGems = 1;	
 	private int numberOfSmallGems = 0;	
-	public HalfCircle(int id) {
-		super(id);
+	public HalfCircle() {
+		super();
 	}
 	
 	public int getPoint() {
