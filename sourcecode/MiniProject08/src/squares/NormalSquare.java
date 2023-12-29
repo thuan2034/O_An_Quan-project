@@ -3,15 +3,15 @@ import gem.*;
 
 public class NormalSquare extends Squares{
 
-	private int numberOfSmallGems = 5;
+	
 	
 	public NormalSquare() {
 		super();
+		numberOfSmallGems = 5;
 	}
 	
 	public int getNumberOfSmallGems() {
-		int tmp = numberOfSmallGems;
-		return tmp;
+		return numberOfSmallGems;
 	}
 
 	@Override
