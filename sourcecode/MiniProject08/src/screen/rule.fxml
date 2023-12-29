@@ -1,6 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-
-<TextArea prefHeight="400.0" prefWidth="600.0" promptText="Rule" text="Rule&#10;&#10;&#10;Mục tiêu của trò chơi: Người thắng cuộc trong trò chơi này là người mà khi cuộc chơi kết thúc có tổng số Dân quy đổi nhiều hơn. Tùy theo luật chơi từng địa phương hoặc thỏa thuận giữa hai người chơi nhưng phổ biến là 1 Quan được quy đổi bằng 10 Dân hoặc 5 Dân (cờ).&#10;&#10;Cách di chuyển: Người thực hiện lượt đi đầu tiên thường được xác định bằng cách oẳn tù tì hoặc thỏa thuận. Người chơi đầu tiên cầm lên 5 quân trong bất kỳ 1 ô vuông nào trong 5 ô ở phía bàn bên mình, rồi rải lần lượt từng quân vào các ô vuông bên cạnh, mỗi ô là 1 quân, bắt đầu ngược hay xuôi chiều kim đồng hồ tùy vào người chơi. Khi rải hết quân cuối cùng, tùy tình huống mà người chơi sẽ phải xử lý tiếp như sau:&#10;&#10;Nếu liền sau đó là một ô vuông có chứa quân thì tiếp tục dùng tất cả số quân đó để rải tiếp theo chiều đã chọn.&#10;Nếu liền sau đó là một ô trống (không phân biệt ô Quan hay ô Dân) rồi đến một ô có chứa quân thì người chơi sẽ bị mất lượt số quân trong ô đó. Số quân bị ăn sẽ được loại ra khỏi bàn chơi để người chơi tính điểm khi kết thúc. Nếu liền sau ô có quân đã bị ăn lại là một ô trống rồi đến một ô có quân nữa thì người chơi có quyền ăn tiếp cả quân ở ô này... Do đó trong cuộc chơi có thể có phương án rải quân làm cho người chơi ăn hết toàn bộ số quân trên bàn chơi chỉ trong một lượt đi của mình. Một ô có nhiều Dân thường được gọi là ô nhà giàu, rất nhiều Dân thì gọi là giàu sụ. Người chơi có thể bằng kinh nghiệm hoặc tính toán phương án nhằm nuôi ô nhà giàu rồi mới ăn để được nhiều điểm.&#10;Nếu liền sau đó là ô quan có chứa quân hoặc 2 ô trống trở lên hoặc sau khi vừa ăn thì người chơi bị mất lượt và quyền đi tiếp thuộc về đối phương.&#10;Trường hợp đến lượt đi nhưng cả năm ô vuông thuộc quyền kiểm soát của người chơi đều không có Dân thì người đó sẽ phải dùng 5 Dân đã ăn được của mình để đặt vào mỗi ô 1 Dân để có thể thực hiện việc di chuyển quân. Nếu người chơi không đủ 5 Dân thì phải vay của đối phương và trả lại khi tính điểm.&#10;&#10;Cuộc chơi sẽ kết thúc khi toàn bộ Dân và Quan ở hai ô Quan đã bị ăn hết. Trường hợp hai ô Quan đã bị ăn hết nhưng vẫn còn Dân thì quân trong những hình vuông phía bên nào coi như thuộc về người chơi bên ấy; tình huống này được gọi là &quot;hết Quan, tàn Dân, thu quân, kéo về&quot; hay &quot;hết Quan, tàn Dân, thu quân, bán ruộng&quot;. Ô Quan có ít Dân (có số Dân nhỏ hơn 5 phổ biến được coi là ít) gọi là Quan non và để cuộc chơi không bị kết thúc sớm cho tăng phần thú vị, luật chơi có thể quy định không được ăn Quan non, nếu rơi vào tình huống đó sẽ bị mất lượt." wrapText="true" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.RuleController">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="350.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <TextFlow lineSpacing="2.0" maxHeight="835.0" maxWidth="600.0" prefHeight="833.0" prefWidth="598.0" style="-fx-background-color: #e4ccbb;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="83.0" prefWidth="599.0" text="Luật chơi&#10;" textFill="#664229">
+                     <font>
+                        <Font name="Verdana Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;" />
+                  <Text fill="#664229" strokeType="OUTSIDE" strokeWidth="0.0" text="Điều kiện giành chiến thắng: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Người thắng cuộc trong trò chơi này là người mà khi trận đấu kết thúc có tổng số Dân quy đổi nhiều hơn. Ở đây, 1 Quan được quy đổi bằng 5 Dân." wrappingWidth="535.6513671875">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="541.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;" />
+                  <Text fill="#664229" strokeType="OUTSIDE" strokeWidth="0.0" text="Cách chơi: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="205.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền sau đó là một ô Dân có chứa Dân thì người chơi tiếp tục dùng số quân đó rải tiếp vào các ô theo hướng đã chọn, không được đổi hướng." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền so đó là ô Quan hoặc 2 ô trống trở lên thì sẽ chuyển sang lượt của người chơi còn lại." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="704.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền sau đó là một ô trống (không phân biệt ô Quan hay ô Dân) rồi mới đến một ô có chứa quân thì người chơi sẽ ăn tất cả số quân có trong đó (bất kể là ô Dân hay ô Quan). " wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền sau ô vừa ăn có thêm một ô trống nữa rồi đến một ô có quân thì người chơi có quyền ăn tiếp cả quân ở ô này." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Số quân mà người chơi ăn được sẽ bị loại khỏi bàn chơi để tính điểm kết thúc" wrappingWidth="518.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="704.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền sau ô vừa ăn có quân thì lượt của người chơi kết thúc và chuyển sang lượt chơi của người chơi còn lại." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Trường hợp đến lượt đi nhưng cả 5 ô thuộc phần của người chơi không có dân thì người đó sẽ phải dùng 5 dân đã ăn được của mình để đặt vào mỗi ô dân. Nếu người chơi không đủ 5 dân thì sẽ phải vay của đối phương và trả lại khi tính điểm." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cứ tiếp tục như thế cho đến khi toàn bộ Dân và Quan bị ăn hết." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Trường hợp hai ô Quan đã bị ăn hết nhưng vẫn còn quân Dân thì quân trong phần ô vuông của bên nào coi như thuộc về người chơi bên ấy." wrappingWidth="525.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="10.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;&#10;">
+                     <font>
+                        <Font size="3.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Khi đến lượt, người chơi sẽ chọn 1 ô Dân bên hàng của mình, lấy đá trong ô đó và rải lần lượt vào các ô kế tiếp (bất kể là ô bên phần mình hay bên phần đối phương) theo hướng mà người chơi đã chọn. Khi rải hết số đá vừa lấy, tùy tình huống mà xử lí như sau:" wrappingWidth="544.82861328125">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+         </content></ScrollPane>
+      <AnchorPane layoutY="350.0" maxHeight="50.0" maxWidth="600.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+         <children>
+            <Button alignment="CENTER" layoutX="185.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #664228;" text="Back" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="317.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #664228;" text="Play" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

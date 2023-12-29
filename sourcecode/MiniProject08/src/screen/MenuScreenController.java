@@ -1,9 +1,13 @@
 package screen;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class MenuScreenController { 
@@ -13,7 +17,7 @@ public class MenuScreenController {
 	AnchorPane rootAnchorPane;
 	@FXML
 	AnchorPane playAnchorPane;
-	
+
 	public MenuScreenController() {	  }
 		@FXML		
 		
@@ -28,8 +32,6 @@ public class MenuScreenController {
 	    
 	    @FXML
 	    void ruleBtnPressed(ActionEvent event) {
-	    	Pane pane = new Pane();
-	    	pane.getChildren().add(new Button("Bob"));
-	    	pane.setVisible(true);
+
 	    }
 }
