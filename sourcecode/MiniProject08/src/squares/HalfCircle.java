@@ -3,7 +3,6 @@ import gem.*;
 public class HalfCircle extends Squares{
 
 	private int numberOfBigGems = 1;	
-	private int numberOfSmallGems = 0;	
 	public HalfCircle() {
 		super();
 	}

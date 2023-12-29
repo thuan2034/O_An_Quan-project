@@ -4,8 +4,8 @@ package squares;
 public abstract class Squares {
 	
 	
-	private static int numberOfSquares = 0;
-	protected int numberOfSmallGems;
+	private static int numberOfSquares = 1;
+	protected int numberOfSmallGems = 0;
 	protected int id = numberOfSquares;
 
 	public Squares() {
@@ -21,5 +21,11 @@ public abstract class Squares {
 	public void resetNumberOfGems(){
 		numberOfSmallGems = 0;
 	}
+	
+	public int getId() {
+		return id;
+	}
 
+
+    
 }

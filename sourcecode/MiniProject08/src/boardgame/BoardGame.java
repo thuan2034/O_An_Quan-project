@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import squares.*;
 
 public class BoardGame {
-	private ArrayList<Squares> row = new ArrayList<Squares>();
+	private ArrayList<Squares> row = new ArrayList<>();
 	
 	public BoardGame() {
 		//prepare gems to play
 		for (int i=1; i<=12; i++){
-			HalfCircle halfCircle = new HalfCircle();
-			NormalSquare normalSquare = new NormalSquare();
 			if (i == 1 || i == 7){
-				row.set(i, halfCircle);
+				row.add(new HalfCircle());
 			}
-			else row.set(i,normalSquare); 
+			else row.add(new NormalSquare()); 
 		}
 
 
@@ -50,4 +48,6 @@ public class BoardGame {
     public Squares getSquare(int id) {
     	return row.get(id);
     }
+    
+    
 }
