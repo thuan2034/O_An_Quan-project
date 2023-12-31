@@ -8,6 +8,7 @@ public class BoardGame {
 	
 	public BoardGame() {
 		//prepare gems to play
+		row.add(new NormalSquare());
 		for (int i=1; i<=12; i++){
 			if (i == 1 || i == 7){
 				row.add(new HalfCircle());
