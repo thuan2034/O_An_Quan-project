@@ -8,9 +8,9 @@ public class BoardGame {
 	
 	public BoardGame() {
 		//prepare gems to play
-		row.add(new NormalSquare());
-		for (int i=1; i<=12; i++){
-			if (i == 1 || i == 7){
+
+		for (int i=0; i<12; i++){
+			if (i == 0 || i == 6){
 				row.add(new HalfCircle());
 			}
 			else row.add(new NormalSquare()); 

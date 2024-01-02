@@ -17,7 +17,7 @@ public class MenuScreenController {
 		@FXML		
 		
 		private void initialize() {
-
+			
 		}
 		
 	    @FXML
