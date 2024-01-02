@@ -69,8 +69,8 @@ public class Match {
 		}	
 	}
 	public int convertSquareId(int id) {
-		if(id==13) return 1;
-		if(id==0)  return 12;
+		if(id==12) return 0;
+		if(id==-1)  return 11;
 		return id;
 	}
 	public void selectSquare()

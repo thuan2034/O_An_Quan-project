@@ -10,9 +10,6 @@ public class NormalSquare extends Squares{
 		numberOfSmallGems = 5;
 	}
 	
-	public int getNumberOfSmallGems() {
-		return numberOfSmallGems;
-	}
 
 	@Override
 	public int getPoint() {
