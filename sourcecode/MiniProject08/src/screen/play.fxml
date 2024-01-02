@@ -31,12 +31,12 @@
                </cursor>
             </ImageView>
             <Ellipse fill="#cda180" layoutX="432.0" layoutY="52.0" radiusX="65.0" radiusY="35.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" />
-            <Label alignment="CENTER" layoutX="126.0" layoutY="33.0" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #cda180;" text="Your Turn" textFill="#664228">
+            <Label fx:id="player2TurnLabel" alignment="CENTER" layoutX="126.0" layoutY="33.0" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #cda180;" text="Your Turn" textFill="#664228" visible="false">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="413.0" layoutY="61.0" text="Label" textFill="#664228">
+            <Label fx:id="player2PointLabel" alignment="CENTER" layoutX="376.0" layoutY="40.0" prefHeight="21.0" prefWidth="110.0" text="Label" textFill="#664228">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -48,10 +48,10 @@
             <HBox fx:id="boardHbox" alignment="CENTER" layoutX="2.0" layoutY="14.0" maxHeight="200.0" maxWidth="600.0" prefHeight="173.0" prefWidth="587.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane fx:id="hfCircleAncPane0" prefHeight="150.0" prefWidth="75.0" />
-                  <VBox prefHeight="173.0" prefWidth="383.0" spacing="4.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="173.0" prefWidth="383.0" spacing="4.0">
                      <children>
-                        <HBox fx:id="hBox2" prefHeight="100.0" prefWidth="200.0" spacing="4.0" />
-                        <HBox fx:id="hBox1" prefHeight="100.0" prefWidth="200.0" spacing="4.0" />
+                        <HBox fx:id="hBox2" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0" />
+                        <HBox fx:id="hBox1" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0" />
                      </children>
                   </VBox>
                   <AnchorPane fx:id="hfCircleAncPane6" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="75.0" />
@@ -68,12 +68,12 @@
             </ImageView>
             <Label alignment="CENTER" layoutX="1.0" layoutY="4.0" prefHeight="21.0" prefWidth="600.0" text="Player 1" AnchorPane.topAnchor="4.0" />
             <Ellipse fill="#cda180" layoutX="166.0" layoutY="54.0" radiusX="65.0" radiusY="35.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" />
-            <Label alignment="CENTER" layoutX="373.0" layoutY="39.0" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #cda180;" text="Your Turn" textFill="#664228">
+            <Label fx:id="player1TurnLabel" alignment="CENTER" layoutX="373.0" layoutY="39.0" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #cda180;" text="Your Turn" textFill="#664228" visible="false">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="147.0" layoutY="62.0" text="Label" textFill="#664228">
+            <Label fx:id="player1PointLabel" alignment="CENTER" layoutX="110.0" layoutY="37.0" prefHeight="30.0" prefWidth="110.0" text="Label" textFill="#664228">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
