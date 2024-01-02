@@ -28,12 +28,6 @@ public abstract class Squares {
 	}
     
 	public int getId() {
-		if(this.id >= 1 && this.id <= 5) {
-			return 1;
-		} 
-		else if(this.id >= 7 && this.id <= 11) {
-			return 2;
-		}
 		return this.id;
 	}
 }

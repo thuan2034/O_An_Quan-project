@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import boardgame.BoardGame;
 import player.Player;
+import screen.PlayScreenController;
 import squares.*;
 
 public class Match {
@@ -14,57 +15,70 @@ public class Match {
     private int direction;
     private BoardGame board = new BoardGame();
     private int squareId=0;
+    
+    public int squareId() {
+    	return squareId;
+    }
+    public int getTurn() {
+    	return turn;
+    }
+    public int getPlayerPoint(int id) {
+    	return player.get(id-1).getScore();
+    }
 	public Match() {
 		Player player1= new Player(1);
 		Player player2= new Player(2);
 		player.add(player1);
 		player.add(player2);
 		}
-	public void spreadGems(int id,int direction,Player player) {
+	public void spreadGems() {
 		
-		NormalSquare square=(NormalSquare) board.getSquare(id);
+		NormalSquare square=(NormalSquare) board.getSquare(squareId);
 		int gemInHand = square.getNumberOfSmallGems();
 		square.resetNumberOfGems();
+		
 		for(int i=1;i<=gemInHand;i++) {
-		id+=direction;
-		id=convertSquareId(id);
-		System.out.print(id+" ");
-		board.getSquare(id).spreadGems();
+		squareId+=direction;
+		squareId=convertSquareId(squareId);
+		board.getSquare(squareId).spreadGems();
 		}
-		System.out.println("");
-		if(stopSpreadGem(id,direction,player)==false) {
-			id+=direction;
-			id=convertSquareId(id);
-			spreadGems(id,direction,player);};
+		PlayScreenController.speardGems(gemInHand);
+		
+		if(stopSpreadGem()==false) {
+			squareId+=direction;
+			squareId=convertSquareId(squareId);
+			spreadGems();
+		};
+		
 	}
 	    
-	public boolean stopSpreadGem(int id,int direction,Player player) {
-		id+=direction;
-		id=convertSquareId(id);
-		if(board.getSquare(id) instanceof HalfCircle) return true;
-	    if(board.getSquare(id).getPoint()!=0) return false;
-	    id-=direction;
-	    id=convertSquareId(id);
+	public boolean stopSpreadGem() {
+		squareId+=direction;
+		squareId=convertSquareId(squareId);
+		if(board.getSquare(squareId) instanceof HalfCircle) return true;
+	    if(board.getSquare(squareId).getPoint()!=0) return false;
+	    squareId-=direction;
+	    squareId=convertSquareId(squareId);
 		while (true){
-		id+=2*direction;
-		id=convertSquareId(id);
-		if(board.getSquare(id).getPoint()==0)
+		squareId+=2*direction;
+		squareId=convertSquareId(squareId);
+		if(board.getSquare(squareId).getPoint()==0)
 			return true;
-		id-=direction;
-		id=convertSquareId(id);
-		if(board.getSquare(id).getPoint()!=0)
+		squareId-=direction;
+		squareId=convertSquareId(squareId);
+		if(board.getSquare(squareId).getPoint()!=0)
 		return true;
 		else 
-		{   id+=direction;
-		    id=convertSquareId(id);
-		    int pointEarn=board.getSquare(id).getPoint();
-			player.increScore(pointEarn);
-			board.getSquare(id).resetNumberOfGems();
-			if(id==7||id==1) {
-				HalfCircle halfcircle = (HalfCircle) board.getSquare(id);
+		{   squareId+=direction;
+		    squareId=convertSquareId(squareId);
+		    int pointEarn=board.getSquare(squareId).getPoint();
+			player.get(turn-1).increScore(pointEarn);
+			board.getSquare(squareId).resetNumberOfGems();
+			if(squareId==7||squareId==1) {
+				HalfCircle halfcircle = (HalfCircle) board.getSquare(squareId);
 				halfcircle.resetNumberOfGems();
 			}
-			System.out.println("Earn "+pointEarn+" points");
+			PlayScreenController.getGemsInSquare(squareId);
 		}
 		}	
 	}
@@ -73,44 +87,18 @@ public class Match {
 		if(id==-1)  return 11;
 		return id;
 	}
-	public void selectSquare()
-	{   do
-		{System.out.println("Choose square: ");
-		int choice = scanner.nextInt();
-	     if(turn==1)
-			{if(choice>1&&choice<7)
-				{
-					squareId=choice;
-					if(board.getSquare(squareId).getPoint()==0)
-					{
-						System.out.println("Square empty, Pick again:");
-						squareId=0;
-					}
-				}
-			else System.out.println("Player 1 must pick a square from 2 - 6");  
-			}
-	     if(turn==2)
-	     {
-	    	 if(choice>7&&choice<13)
-	    		 {squareId=choice;
-	    		 if(board.getSquare(squareId).getPoint()==0)
-					{
-						System.out.println("Square empty, Pick again:");
-						squareId=0;
-					}
-	    		 }
-	    	 else System.out.println("Player 2 must pick a square from 8 - 12");
-	     }
-         
-	     }while(squareId==0);
-	    	 }
-	public void selectDirection() {
-		 System.out.println("Select direction: (1: phải |-1:trái)");
-		 int choice = scanner.nextInt();
-		 direction=choice;
+	public void selectSquare(int id) {   
+	  squareId = id;
+	}
+	
+	public void selectDirection(int choice) {
+		 this.direction=choice;
 	}
 	public boolean stopMatch() {
 		return board.rowNoBigGem();
+	}
+	public void newTurn(int turn) {
+		this.turn = turn;
 	}
 	public void newTurn() {
 		if(turn==1)
@@ -131,9 +119,9 @@ public class Match {
 		    		board.getSquare(i).spreadGems();
 		    	}
 		    }
-			selectSquare();
-			selectDirection();
-			spreadGems(squareId,direction,player.get(0));
+			//selectSquare();
+			//selectDirection();
+		    spreadGems();//spreadGems(squareId, player.get(0));
 			newTurn();
 			showResult();
 			squareId=0;
@@ -145,9 +133,9 @@ public class Match {
 			    		board.getSquare(i).spreadGems();
 			    	}
 			    }
-			selectSquare();
-			selectDirection();
-			spreadGems(squareId,direction,player.get(1));
+			//selectSquare();
+			//selectDirection();
+			spreadGems();//spreadGems(squareId, player.get(1));
 			newTurn();
 			showResult();
 			squareId=0;
@@ -156,7 +144,10 @@ public class Match {
 		}
 	}
 
-
+	public BoardGame getBoard() {
+		return board;
+	}
+	
 		public static void main(String[] args) {
 			Match match=new Match();
 			match.begin();
