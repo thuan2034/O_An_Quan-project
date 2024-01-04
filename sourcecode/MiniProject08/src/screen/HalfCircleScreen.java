@@ -79,4 +79,14 @@ public class HalfCircleScreen extends AnchorPane{
     	flowPane.getChildren().clear();
     	point.setText(""+hfC.getPoint());
 	}
+	
+	 public void isSpreaded() {
+	    arc.setFill(Color.rgb(139, 90, 54));
+		point.setTextFill(Color.WHITE);
+	 }
+	 
+	 public void resetToDefault() {
+	    arc.setFill(Color.rgb(205, 161, 128));
+		point.setTextFill(Color.rgb(102, 66, 40));
+	 }
 }

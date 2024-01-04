@@ -26,7 +26,7 @@ public class Match {
     public SimpleIntegerProperty getTurn() {
     	return turn;
     }
-    public int getPlayerPoint(int id) {
+    public SimpleIntegerProperty getPlayerPoint(int id) {
     	return player.get(id-1).getScore();
     }
     public int getGemInHand() {
@@ -69,11 +69,10 @@ public class Match {
 	    return 1; //player get point
 	}
 	
-	public void getPoint(int squareId) {
+	public void getPoint(int squareId, int playerId) {
 		
 		int pointEarn=board.getSquare(squareId).getPoint();
-		System.out.println("Turn: " + turn.get());
-		if(turn.get() > 0) player.get(turn.get()-1).increScore(pointEarn);
+		if(playerId > 0) player.get(playerId-1).increScore(pointEarn);
 	
 		getGemsToPoint(squareId);
 	}
