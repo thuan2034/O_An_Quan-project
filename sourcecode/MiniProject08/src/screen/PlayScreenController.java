@@ -5,10 +5,14 @@ import java.util.ArrayList;
 
 
 import boardgame.BoardGame;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -84,7 +88,8 @@ public class PlayScreenController {
 	private BoardGame board = match.getBoard();
 	
 	private static ArrayList<AnchorPane> row = new ArrayList<>();
-	
+	private int squareId;
+	private final static double SPREAD_TIME = 0.2;
 	@FXML
 	private void initialize() {
 		//set turn
@@ -110,23 +115,30 @@ public class PlayScreenController {
 			if(match.getTurn().get()!=0) newTurn();
 			else {
 				int winner=0;
-				if(match.getPlayerPoint(1) > match.getPlayerPoint(2)) {
+				if(match.getPlayerPoint(1).get() > match.getPlayerPoint(2).get()) {
 					winner = 1;
-				}else if(match.getPlayerPoint(1) < match.getPlayerPoint(2)) {
+				}else if(match.getPlayerPoint(1).get() < match.getPlayerPoint(2).get()) {
 					winner = 2;
-				}else if(match.getPlayerPoint(1) == match.getPlayerPoint(2)) {
+				}else if(match.getPlayerPoint(1).get() == match.getPlayerPoint(2).get()) {
 					winner = 0;
 				}
 				if(winner!=0) winnerLabel.setText("Player " + winner);
-				else //
-				winScore1.setText(""+match.getPlayerPoint(1));
-				winScore2.setText(""+match.getPlayerPoint(2));
-				
+				else {}
+				winScore1.setText(""+match.getPlayerPoint(1).get());
+				winScore2.setText(""+match.getPlayerPoint(2).get());
+
 				playAncPane.setEffect(new GaussianBlur());
 				resultAncPane0.setVisible(true);
 			}
         });
 		
+		match.getPlayerPoint(1).addListener((observable, oldValue, newValue) -> {
+			point1Label.setText(""+match.getPlayerPoint(1).get());
+		});
+		
+		match.getPlayerPoint(2).addListener((observable, oldValue, newValue) -> {
+			point2Label.setText(""+match.getPlayerPoint(2).get());
+		});
 		
 		resultAncPane0.setBorder(new Border(new BorderStroke(Color.rgb(102, 66, 40), 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5.0))));
@@ -174,12 +186,14 @@ public class PlayScreenController {
 		translate.play();
 		
 		TranslateTransition translate2 = new TranslateTransition();
-		translate2.setDelay(Duration.millis(1500));
 		translate2.setNode(turnAncPane);
 		translate2.setDuration(Duration.millis(1500));
 		translate2.setFromX(0);
 		translate2.setToX(600);
-		translate2.play();
+		
+		translate.setOnFinished(event -> {
+			translate2.play();
+		});
 		
 		translate2.setOnFinished(event -> {
 			turnAncPane.setVisible(false);
@@ -188,11 +202,19 @@ public class PlayScreenController {
 	
 	
 	public void newTurn() {
-		if(match.rowNoGem(match.getTurn().get()))
+		double waitTime = 0;
+		if(match.rowNoGem(match.getTurn().get())) {
+			waitTime = SPREAD_TIME*7;
 			spreadRowNoGem(match.getTurn().get());
-		
-		point1Label.setText(""+match.getPlayerPoint(1));
-		point2Label.setText(""+match.getPlayerPoint(2));
+		}
+
+		//resetBoardToDefaultColor();
+		PauseTransition delay = new PauseTransition(Duration.seconds(waitTime));
+		delay.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+		point1Label.setText(""+match.getPlayerPoint(1).get());
+		point2Label.setText(""+match.getPlayerPoint(2).get());
 		
 		if(match.getTurn().get() == 1) {
 			player1TurnLabel.setVisible(true);
@@ -213,93 +235,196 @@ public class PlayScreenController {
 		}
 		
 		turnAnnounce();
+			}
+		});
+		delay.play();
+	}
 
+	public void changeColorWhenSpreadG(int squareId) {
+		if(squareId == 0 || squareId == 6) {
+			((HalfCircleScreen) row.get(squareId)).isSpreaded();
+		}else ((NormalSquareScreen) row.get(squareId)).isSpreaded();
+		squareId = convertSquareId(squareId - match.getDirection());
+		resetToDefaultColor(squareId);
+	}
+	
+	public void resetToDefaultColor(int squareId) {
+		if(squareId == 0 || squareId == 6) {
+			((HalfCircleScreen) row.get(squareId)).resetToDefault();
+		}else ((NormalSquareScreen) row.get(squareId)).resetToDefault();
+	}
+
+	public void resetBoardToDefaultColor() {
+		for(int i=0; i<=11; i++) {
+			if(i == 0 || i == 6) {
+				((HalfCircleScreen) row.get(i)).resetToDefault();
+			}else ((NormalSquareScreen) row.get(i)).resetToDefault();
+		}
 	}
 	
 	public void speardGems() {
-		int squareId = match.getSquareId();
-		System.out.println(squareId);
+		squareId = match.getSquareId();
+		
 		int direction = match.getDirection();
 		
-		System.out.println("Spread gems: ");
-		
-		for(int i=0; i<match.getGemInHand(); i++) {
+		Timeline spreadGemTimeLine = new Timeline();
+		spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
 			squareId += direction;
 			squareId=convertSquareId(squareId);
 			
-			System.out.println(squareId);
-			
 			match.spreadGems(squareId);
-
+			
+			changeColorWhenSpreadG(squareId);
 			if(squareId == 0 || squareId == 6) {
 				((HalfCircleScreen) row.get(squareId)).spreadGems();
 			}else ((NormalSquareScreen) row.get(squareId)).spreadGems();
-		}
+		}));
 		
-		squareId+=direction;
-		squareId=convertSquareId(squareId);
+		spreadGemTimeLine.setCycleCount(match.getGemInHand());
+		spreadGemTimeLine.play();
 		
-		System.out.print("Stop: ");
-		System.out.println(squareId);
-		
-		if(match.stopSpreadGem(squareId)==0) {		//stop false
-			((NormalSquareScreen) row.get(squareId)).getGemsInSquare();
-		}
-		else if(match.stopSpreadGem(squareId)==1) {//player get point
-			
-			squareId += direction;
-			squareId=convertSquareId(squareId);
-			match.getPoint(squareId);
-			getGemsToPoint(squareId);
-			System.out.print("Get: ");
-			System.out.println(squareId);
-			
-			while (true){
-				squareId+=direction;
+		spreadGemTimeLine.setOnFinished(event -> {
+			PauseTransition delay1 = new PauseTransition(Duration.seconds(SPREAD_TIME));
+			delay1.setOnFinished(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent event) {
+			    	squareId+=direction;
+					squareId=convertSquareId(squareId);
+					changeColorWhenSpreadG(squareId);
+					
+			if(match.stopSpreadGem(squareId)==0) {		//stop false
+				PauseTransition delay = new PauseTransition(Duration.seconds(SPREAD_TIME));
+				delay.setOnFinished(new EventHandler<ActionEvent>() {
+				    @Override
+				    public void handle(ActionEvent event) {
+				    	changeColorWhenSpreadG(squareId);
+				       ((NormalSquareScreen) row.get(squareId)).getGemsInSquare();
+				    }
+				});
+				delay.play();
+			}
+			else if(match.stopSpreadGem(squareId)==1) {//player get point
+				PauseTransition delay = new PauseTransition(Duration.seconds(SPREAD_TIME));
+				delay.setOnFinished(new EventHandler<ActionEvent>() {
+				    @Override
+				    public void handle(ActionEvent event) {
+				squareId += direction;
 				squareId=convertSquareId(squareId);
-				squareId+=direction;
-				squareId=convertSquareId(squareId);
-				System.out.println("Stop" + squareId);
-				if(board.getSquare(squareId).getPoint()==0)
-					break;			//stop get point
-				squareId-=direction;
-				squareId=convertSquareId(squareId);
+				changeColorWhenSpreadG(squareId);
 				
-				if(board.getSquare(squareId).getPoint()!=0) break;		//stop true
-				else 
-				{
+				match.getPoint(squareId, match.getTurn().get());
+				getGemsToPoint(squareId);
+
+				Timeline getPointTimeLine = new Timeline();
+				getPointTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
+							
 					squareId+=direction;
 					squareId=convertSquareId(squareId);
-					System.out.print(".Get: ");
-					System.out.println(squareId);
+					changeColorWhenSpreadG(squareId);
 					
-					match.getPoint(squareId);//player get point
-					getGemsToPoint(squareId);
+					if(board.getSquare(squareId).getPoint()!=0) {
+						resetToDefaultColor(squareId);
+						getPointTimeLine.setCycleCount(0);		
+					}
+					else {
+				
+					squareId+=direction;
+					squareId=convertSquareId(squareId);
+					changeColorWhenSpreadG(squareId);
+					
+					if(board.getSquare(squareId).getPoint()==0)
+					{
+						resetToDefaultColor(squareId);
+						getPointTimeLine.setCycleCount(0);			//stop get point
+					}else 
+					{
+						
+						match.getPoint(squareId, match.getTurn().get());//player get point
+						getGemsToPoint(squareId);
+						getPointTimeLine.setCycleCount(Timeline.INDEFINITE);
+					}
+					}
+				}));
+				getPointTimeLine.setCycleCount(1);
+				getPointTimeLine.play();
+				
+				getPointTimeLine.setOnFinished(event2 -> {
+					if(!match.stopMatch()) match.newTurn();
+					else {
+						getScoreInBoard();
+						setTurn(0);
+					}
+				});
+				    }
+				});
+				delay.play();
+			}else { 
+
+				resetToDefaultColor(squareId);
+				if(!match.stopMatch()) match.newTurn(); 
+				else {
+					getScoreInBoard();
+					setTurn(0);
 				}
-			}	
-			if(!match.stopMatch()) match.newTurn();
-			else setTurn(0);
-		}else { 
-			if(!match.stopMatch()) match.newTurn(); 
-			else setTurn(0);
-		}
-    }
-	
-	public void spreadRowNoGem(int turn) {
-		if(turn == 1) {
-			for(int i=1; i<=5; i++) {
-				match.spreadGems(i);
-				((NormalSquareScreen) row.get(i)).spreadGems();
 			}
+			}
+			});
+			delay1.play();
+			
+		});
+    }
+	int iRowNoGem;
+	public void spreadRowNoGem(int turn) {
+		match.selectDirection(1);
+		if(turn == 1) {
+			iRowNoGem=1;
 		}  
 		else if(turn == 2) {
-			for(int i=7; i<=11; i++) {
-				match.spreadGems(i);
-				((NormalSquareScreen) row.get(i)).spreadGems();
-			}	
-		}
+			iRowNoGem=7;
+			
+		}	
+			Timeline spreadGemTimeLine = new Timeline();
+			spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
+				match.spreadGems(iRowNoGem);
+				((NormalSquareScreen) row.get(iRowNoGem)).spreadGems();
+				
+				changeColorWhenSpreadG(iRowNoGem);
+				iRowNoGem++;
+			}));
+			spreadGemTimeLine.setCycleCount(5);
+			spreadGemTimeLine.play();
+			spreadGemTimeLine.setOnFinished(event -> {
+				resetToDefaultColor(iRowNoGem-1);
+			});
+		
+		
 	}
-	
+
+	int playerId=1;
+	public void getScoreInBoard() {
+
+			iRowNoGem=1;
+			match.selectDirection(1);
+			
+			Timeline spreadGemTimeLine = new Timeline();
+			spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
+				changeColorWhenSpreadG(iRowNoGem);
+				match.getPoint(iRowNoGem, playerId);
+				((NormalSquareScreen) row.get(iRowNoGem)).getGemsToPoint();
+				if(iRowNoGem==5) {
+					resetToDefaultColor(iRowNoGem);
+					iRowNoGem=7;
+					playerId=2;
+				}else iRowNoGem++;
+				
+			}));
+			spreadGemTimeLine.setCycleCount(10);
+			spreadGemTimeLine.play();
+			spreadGemTimeLine.setOnFinished(event -> {
+				resetToDefaultColor(iRowNoGem-1);
+			});
+			
+	}
 	public void getGemsToPoint(int squareId) {
 		match.getGemsToPoint(squareId);
 		if(squareId == 0 || squareId == 6) {
@@ -314,5 +439,4 @@ public class PlayScreenController {
 		if(squareId==-1)  squareId = 11;
 		return squareId;
 	}
-
 }

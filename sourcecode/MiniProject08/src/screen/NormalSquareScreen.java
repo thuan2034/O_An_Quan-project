@@ -123,6 +123,11 @@ public class NormalSquareScreen extends AnchorPane{
 		isClicked = false;
     }
     
+    public void isSpreaded() {
+    	rec.setFill(Color.rgb(139, 90, 54));
+		point.setTextFill(Color.WHITE);
+    }
+    
     public void getGemsInSquare() {
     	match.selectSquare(square.getId());
     	match.getGemsInSquare(square.getId());
