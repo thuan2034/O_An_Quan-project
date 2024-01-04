@@ -9,6 +9,7 @@ public class HalfCircle extends Squares{
 	
 	public void resetNumberOfGems(){
 		numberOfBigGems = 0;
+		numberOfSmallGems = 0;
 	}
 	
 	@Override

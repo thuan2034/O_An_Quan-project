@@ -1,5 +1,6 @@
 package screen;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -11,12 +12,14 @@ import squares.HalfCircle;
 
 public class HalfCircleScreen extends AnchorPane{
 	private Arc arc = new Arc();
-	private Label label = new Label();
+	private Label point = new Label();
 	private VBox vbox = new VBox();
 	private FlowPane flowPane = new FlowPane();
+	private HalfCircle hfC = new HalfCircle();
 	
 	public HalfCircleScreen(HalfCircle hfC) {
 		Group group = new Group();
+		this.hfC = hfC;
 		
 		arc.setLength(180.0);
 		arc.setRadiusX(75);
@@ -28,29 +31,26 @@ public class HalfCircleScreen extends AnchorPane{
     	
     	if(hfC.getId()==0) {
 			arc.setStartAngle(90.0);
-			label.setTranslateX(-68); label.setTranslateY(-10);
+			point.setTranslateX(-68); point.setTranslateY(-10);
 			flowPane.setTranslateX(-50); flowPane.setTranslateY(-50);
 		}
 		else if(hfC.getId()==6){
 			arc.setStartAngle(270.0);
-			label.setTranslateX(54); label.setTranslateY(-10);
+			point.setTranslateX(54); point.setTranslateY(-10);
 			flowPane.setTranslateX(5); flowPane.setTranslateY(-50);
 			flowPane.setAlignment(Pos.TOP_RIGHT);
 		}
     	
-    	label.setFont(Font.font("System", FontWeight.BOLD, 15));
-    	label.setTextFill(Color.rgb(102, 66, 40));   
-    	label.setText(""+hfC.getPoint());
+    	point.setFont(Font.font("System", FontWeight.BOLD, 15));
+    	point.setTextFill(Color.rgb(102, 66, 40));   
+    	point.setText(""+hfC.getPoint());
     
     	flowPane.setPrefWidth(45.0);
     	flowPane.setPrefHeight(100.0);	
     	flowPane.getChildren().add(new Circle(6.0));
-    	for(int i=0; i<hfC.getNumberOfSmallGems(); i++) {
-    		flowPane.getChildren().add(new Circle(3.0));
-    	}
-    	
+
     	group.getChildren().add(arc);
-    	group.getChildren().add(label);
+    	group.getChildren().add(point);
     	group.getChildren().add(flowPane);
     	
     	vbox.setAlignment(Pos.CENTER);
@@ -62,6 +62,21 @@ public class HalfCircleScreen extends AnchorPane{
 	
 	public void getGemsInSquare() {
 		flowPane.getChildren().clear();
-		label.setText(""+0);
+		point.setText(""+hfC.getPoint());
     }
+	
+	public void spreadGems() {
+		if(hfC.getId()==0) {
+			flowPane.getChildren().add(new Circle(3.0));
+		}
+		else if(hfC.getId()==6) {
+			flowPane.getChildren().add(0, new Circle(3.0));
+		}
+		point.setText(""+hfC.getPoint());
+    }
+	
+	public void getGemsToPoint() {
+    	flowPane.getChildren().clear();
+    	point.setText(""+hfC.getPoint());
+	}
 }

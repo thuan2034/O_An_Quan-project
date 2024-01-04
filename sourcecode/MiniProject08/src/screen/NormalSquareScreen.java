@@ -1,5 +1,6 @@
 package screen;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -56,7 +57,7 @@ public class NormalSquareScreen extends AnchorPane{
     	squareAnchorPane.setTopAnchor(vboxSquare, 10.0);
     	squareAnchorPane.setBottomAnchor(vboxSquare, 5.0);
 
-    	checkTurn();
+    	resetCursor();
     	squareAnchorPane.setPrefSize(73.0, 73.0);
     	squareAnchorPane.getChildren().add(rec);
     	squareAnchorPane.getChildren().add(vboxSquare);
@@ -67,8 +68,7 @@ public class NormalSquareScreen extends AnchorPane{
     			rec.setFill(Color.rgb(139, 90, 54));
     			point.setTextFill(Color.WHITE);
     			lrPane.setVisible(true);	
-    			PlayScreenController.resetToDefaultSquare();
-    			this.match.selectSquare(square.getId());
+    			MenuScreen.playController.resetToDefaultSquare();
     			isClicked = true;
     		}
     		else {
@@ -109,6 +109,7 @@ public class NormalSquareScreen extends AnchorPane{
     	else if(square.getId()>=7 && square.getId()<=11) {
     		vbox.getChildren().add(lrPane);
     		vbox.getChildren().add(squareAnchorPane);	
+    		hbox.setRotate(180);
     	}
     	
     	this.getChildren().add(vbox);
@@ -123,25 +124,37 @@ public class NormalSquareScreen extends AnchorPane{
     }
     
     public void getGemsInSquare() {
+    	match.selectSquare(square.getId());
+    	match.getGemsInSquare(square.getId());
     	squarePane.getChildren().clear();
-    	point.setText(""+0);
+    	point.setText(""+square.getPoint());
 		resetToDefault();
+		MenuScreen.playController.speardGems();
     }
     
-    public void checkTurn() {
-    	if(match.getTurn() == 1) {
+    public void resetCursor() {
+    	if(square.getPoint() == 0) {
+    		squareAnchorPane.setCursor(Cursor.DEFAULT);
+    		return;
+    	}
+    	if(match.getTurn().get() == 1) {
     		if(this.square.getId() >=1 && this.square.getId() <= 5 ) {
     			squareAnchorPane.setCursor(Cursor.HAND);
     		}else squareAnchorPane.setCursor(Cursor.DEFAULT);
-    	}else if(match.getTurn() == 2) {
+    	}else if(match.getTurn().get()  == 2) {
     		if(this.square.getId() >=7 && this.square.getId() <= 11 ) {
     			squareAnchorPane.setCursor(Cursor.HAND);
     		}else squareAnchorPane.setCursor(Cursor.DEFAULT);
     	}
     }
     
-    public void speardGems() {
-		//thêm 1 circle vào flowpane
-    	//set lại point
+    public void spreadGems() {
+    	squarePane.getChildren().add(new Circle(3.0));
+    	point.setText(""+square.getPoint());
     }
+    
+    public void getGemsToPoint() {
+    	squarePane.getChildren().clear();
+    	point.setText(""+square.getPoint());
+	}
 }
