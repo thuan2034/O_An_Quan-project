@@ -18,21 +18,19 @@ public class BoardGame {
 
 
 	}
-	
-	
 
 	public boolean rowNoSmallGem(int turn) {
 		if (turn == 1) {
 			int sum=0;
-			for (int i=2; i<=6; ++i) {
+			for (int i=1; i<=5; ++i) {
 				sum+=row.get(i).getPoint();
 			}
 			if (sum==0) return true;
 		}
-		else {
+		else if(turn == 2) {
 			
 		int sum=0;
-		for (int i=8; i<=12; ++i) {
+		for (int i=7; i<=11; ++i) {
 			sum+=row.get(i).getPoint();
 		}
 		if (sum==0) return true;
@@ -41,7 +39,7 @@ public class BoardGame {
 	}
     
     public boolean rowNoBigGem() {
-    	if ((row.get(1).getPoint()==0) && (row.get(7).getPoint()==0))
+    	if ((row.get(0).getPoint()==0) && (row.get(6).getPoint()==0))
     		return true;
     	return false;
     }

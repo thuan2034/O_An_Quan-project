@@ -15,7 +15,7 @@ public class MenuScreen extends Application{
 	public static final double HEIGHT = 700;
 	
 	public static double width, height;
-	
+	public static PlayScreenController playController = new PlayScreenController();
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -65,5 +65,5 @@ public class MenuScreen extends Application{
 	public static void main (String[] arg) {
 		launch(arg);
 	}
-
+	
 }
