@@ -25,8 +25,11 @@
                         <Image url="@353021191_1332904940972964_439635488748778428_n.jpg" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutY="79.0" prefHeight="21.0" prefWidth="600.0" text="Player 2" />
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                  <Label alignment="CENTER" layoutY="79.0" prefHeight="21.0" prefWidth="600.0" text="Player 2" textFill="#664228">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" onMouseClicked="#pauseImageClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@OIP-removebg-preview.png" />
                      </image>
@@ -43,7 +46,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="point2Label" layoutX="413.0" layoutY="42.0" text="Label" textFill="#664228">
+                  <Label fx:id="point2Label" alignment="CENTER" layoutX="376.0" layoutY="42.0" prefHeight="21.0" prefWidth="112.0" text="Label" textFill="#664228">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -73,14 +76,17 @@
                         <Image url="@385465003_1388000905463367_2779568532882496250_n.jpg" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="4.0" prefHeight="21.0" prefWidth="600.0" text="Player 1" AnchorPane.topAnchor="4.0" />
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="4.0" prefHeight="21.0" prefWidth="600.0" text="Player 1" textFill="#664228" AnchorPane.topAnchor="4.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
                   <Ellipse fill="#cda180" layoutX="166.0" layoutY="54.0" radiusX="65.0" radiusY="35.0" stroke="#664228" strokeType="INSIDE" strokeWidth="3.0" />
                   <Label fx:id="player1TurnLabel" alignment="CENTER" layoutX="373.0" layoutY="39.0" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #cda180;" text="Your Turn" textFill="#664228" visible="false">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="point1Label" layoutX="147.0" layoutY="44.0" text="Label" textFill="#664228">
+                  <Label fx:id="point1Label" alignment="CENTER" layoutX="110.0" layoutY="44.0" prefHeight="21.0" prefWidth="112.0" text="Label" textFill="#664228">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -112,7 +118,7 @@
             </AnchorPane>
             <HBox alignment="CENTER" layoutY="127.0" maxHeight="40.0" prefHeight="40.0" prefWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #664228;" text="Continue" textFill="WHITE">
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#pauseBackClicked" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #664228;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -123,7 +129,7 @@
                         <DropShadow />
                      </effect>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #664228;" text="Back" textFill="WHITE">
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#pauseContinueClicked" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #664228;" text="Continue" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -143,7 +149,7 @@
       </AnchorPane>
       <AnchorPane fx:id="resultAncPane0" layoutX="101.0" layoutY="75.0" prefHeight="250.0" prefWidth="400.0" visible="false">
          <children>
-            <AnchorPane fx:id="winAncPane1" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #cda180;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="resultAncPane1" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #cda180;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label fx:id="winnerLabel" alignment="CENTER" layoutX="152.0" layoutY="82.0" prefHeight="30.0" prefWidth="110.0" text="Player #" textFill="#664228" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>

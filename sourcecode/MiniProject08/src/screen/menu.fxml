@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="rootAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.MenuScreenController">
    <children>
-      <Button alignment="CENTER" layoutX="200.0" layoutY="295.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Quit" textFill="WHITE">
+      <Button fx:id="quitBtn" alignment="CENTER" layoutX="200.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#quitBtnClicked" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Quit" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -21,12 +21,15 @@
             <Font name="Verdana Bold" size="64.0" />
          </font>
       </Label>
-      <Button fx:id="playBtn" alignment="CENTER" layoutX="200.0" layoutY="175.0" mnemonicParsing="false" onAction="#playBtnClicked" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Play" textFill="WHITE">
+      <Button fx:id="playBtn" alignment="CENTER" layoutX="200.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#playBtnClicked" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Play" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="200.0" layoutY="235.0" mnemonicParsing="false" onAction="#ruleBtnPressed" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Rule" textFill="WHITE">
+      <Button fx:id="ruleBtn" alignment="CENTER" layoutX="200.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#ruleBtnClicked" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #664228;" text="Rule" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
