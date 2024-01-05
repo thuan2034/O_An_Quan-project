@@ -32,12 +32,12 @@ public class HalfCircleScreen extends AnchorPane{
     	if(hfC.getId()==0) {
 			arc.setStartAngle(90.0);
 			point.setTranslateX(-68); point.setTranslateY(-10);
-			flowPane.setTranslateX(-50); flowPane.setTranslateY(-50);
+			flowPane.setTranslateX(-50); flowPane.setTranslateY(-40);
 		}
 		else if(hfC.getId()==6){
 			arc.setStartAngle(270.0);
 			point.setTranslateX(54); point.setTranslateY(-10);
-			flowPane.setTranslateX(5); flowPane.setTranslateY(-50);
+			flowPane.setTranslateX(5); flowPane.setTranslateY(-40);
 			flowPane.setAlignment(Pos.TOP_RIGHT);
 		}
     	
@@ -45,9 +45,11 @@ public class HalfCircleScreen extends AnchorPane{
     	point.setTextFill(Color.rgb(102, 66, 40));   
     	point.setText(""+hfC.getPoint());
     
-    	flowPane.setPrefWidth(45.0);
-    	flowPane.setPrefHeight(100.0);	
-    	flowPane.getChildren().add(new Circle(6.0));
+    	flowPane.setPrefWidth(40.0);
+    	flowPane.setPrefHeight(75.0);	
+    	flowPane.setHgap(1); flowPane.setVgap(1);
+    	
+    	flowPane.getChildren().add(new Circle(8.0));
 
     	group.getChildren().add(arc);
     	group.getChildren().add(point);
@@ -67,10 +69,10 @@ public class HalfCircleScreen extends AnchorPane{
 	
 	public void spreadGems() {
 		if(hfC.getId()==0) {
-			flowPane.getChildren().add(new Circle(3.0));
+			flowPane.getChildren().add(new Circle(4.0));
 		}
 		else if(hfC.getId()==6) {
-			flowPane.getChildren().add(0, new Circle(3.0));
+			flowPane.getChildren().add(0, new Circle(4.0));
 		}
 		point.setText(""+hfC.getPoint());
     }

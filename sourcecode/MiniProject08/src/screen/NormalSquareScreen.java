@@ -42,8 +42,10 @@ public class NormalSquareScreen extends AnchorPane{
     	
     	squarePane.setPrefWidth(60.0);
     	squarePane.setPrefHeight(60.0);
+    	squarePane.setHgap(0.5); squarePane.setVgap(0.5);
+    	
     	for(int i=0; i<square.getNumberOfSmallGems(); i++) {
-    		squarePane.getChildren().add(new Circle(3.0));
+    		squarePane.getChildren().add(new Circle(4.0));
     	}
     	vboxSquare.getChildren().add(squarePane);
     	vboxSquare.getChildren().add(point);
@@ -61,7 +63,7 @@ public class NormalSquareScreen extends AnchorPane{
     	squareAnchorPane.setPrefSize(73.0, 73.0);
     	squareAnchorPane.getChildren().add(rec);
     	squareAnchorPane.getChildren().add(vboxSquare);
-
+    	
     	squareAnchorPane.setOnMouseClicked(event -> {
         	if(squareAnchorPane.cursorProperty().getValue() == Cursor.HAND) {	
     		if(!isClicked) {
@@ -101,6 +103,7 @@ public class NormalSquareScreen extends AnchorPane{
     	
     	lrPane.getChildren().add(hbox);
     	lrPane.setVisible(false);
+    	lrPane.setTranslateX(4);
     	
     	if(square.getId()>=1 && square.getId()<=5) {
     		vbox.getChildren().add(squareAnchorPane);
@@ -154,7 +157,7 @@ public class NormalSquareScreen extends AnchorPane{
     }
     
     public void spreadGems() {
-    	squarePane.getChildren().add(new Circle(3.0));
+    	squarePane.getChildren().add(new Circle(4.0));
     	point.setText(""+square.getPoint());
     }
     
