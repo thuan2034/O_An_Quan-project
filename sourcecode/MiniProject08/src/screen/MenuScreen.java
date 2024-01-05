@@ -23,7 +23,7 @@ public class MenuScreen extends Application{
 			stage.setMinWidth(150.0);
 			stage.setMinHeight(150.0);
 			
-			Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("play.fxml"));
 
 			Scene scene = new Scene(root, WIDTH, HEIGHT);
 

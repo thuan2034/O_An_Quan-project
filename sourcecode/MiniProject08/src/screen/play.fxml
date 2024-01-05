@@ -207,7 +207,7 @@
                         <DropShadow />
                      </effect>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #664228;" text="New game" textFill="WHITE">
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#newGameBtnClicked" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #664228;" text="New game" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

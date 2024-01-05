@@ -8,15 +8,7 @@ public class BoardGame {
 	
 	public BoardGame() {
 		//prepare gems to play
-
-		for (int i=0; i<12; i++){
-			if (i == 0 || i == 6){
-				row.add(new HalfCircle());
-			}
-			else row.add(new NormalSquare()); 
-		}
-
-
+		initBoard();
 	}
 
 	public boolean rowNoSmallGem(int turn) {
@@ -48,5 +40,17 @@ public class BoardGame {
     	return row.get(id);
     }
     
+    public void resetBoard() {
+    	row.clear();
+    }
+    
+    public void initBoard() {
+    	for (int i=0; i<12; i++){
+			if (i == 0 || i == 6){
+				row.add(new HalfCircle());
+			}
+			else row.add(new NormalSquare()); 
+		}
+    }
     
 }

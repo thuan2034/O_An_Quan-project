@@ -33,11 +33,15 @@ public class Match {
     	return gemInHand;
     }
 	public Match() {
+		initPlayer();
+	}
+	
+	public void initPlayer() {
 		Player player1= new Player(1);
 		Player player2= new Player(2);
 		player.add(player1);
 		player.add(player2);
-		}
+	}
 	
 	public void getGemsInSquare(int squareId) {
 		NormalSquare square=(NormalSquare) board.getSquare(squareId);
@@ -146,6 +150,13 @@ public class Match {
 
 	public BoardGame getBoard() {
 		return board;
+	}
+	
+	public void resetAndInitBoard() {
+		board.resetBoard();
+		board.initBoard();
+		player.clear();
+		initPlayer();
 	}
 	
 		public static void main(String[] args) {

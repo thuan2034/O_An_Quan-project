@@ -1,5 +1,6 @@
 package screen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -9,12 +10,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.*;
@@ -22,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import match.Match;
 import squares.*;
@@ -78,7 +84,8 @@ public class PlayScreenController {
 	    private HBox hboxSPR2;
 	    @FXML
 	    private HBox hboxSPR1;
-
+	    @FXML
+	    private Button backBtn;
 	public static Match match = new Match();
 	private BoardGame board = match.getBoard();
 	
@@ -89,23 +96,12 @@ public class PlayScreenController {
 	
 	@FXML
 	private void initialize() {
+
+		//set boardgame
+		initBoardG();
 		//set turn
 		setTurn((int)(Math.random() * 2) + 1);
 		
-		//set boardgame
-		row.add(new HalfCircleScreen( (HalfCircle) board.getSquare(0)));
-		hfCircleAncPane0.getChildren().add(row.get(0));
-		for(int i=1; i<=5; i++) {
-			row.add(new NormalSquareScreen( (NormalSquare) board.getSquare(i)));
-			hBox1.getChildren().add(row.get(i));
-		}
-
-		row.add(new HalfCircleScreen( (HalfCircle) board.getSquare(6)));
-		hfCircleAncPane6.getChildren().add(row.get(6));
-		for(int i=7; i<=11; i++) {
-			row.add(new NormalSquareScreen( (NormalSquare) board.getSquare(i)));
-			hBox2.getChildren().add(0, row.get(i));
-		}	
 		//set player "Your turn"'s visible
 		newTurn();
 		match.getTurn().addListener((observable, oldValue, newValue) -> {
@@ -147,6 +143,23 @@ public class PlayScreenController {
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5.0))));
 		
 		sPRAncPane.setVisible(false);
+	}
+	
+	public void initBoardG() {
+		//set boardgame
+				row.add(new HalfCircleScreen( (HalfCircle) board.getSquare(0)));
+				hfCircleAncPane0.getChildren().add(row.get(0));
+				for(int i=1; i<=5; i++) {
+					row.add(new NormalSquareScreen( (NormalSquare) board.getSquare(i)));
+					hBox1.getChildren().add(row.get(i));
+				}
+
+				row.add(new HalfCircleScreen( (HalfCircle) board.getSquare(6)));
+				hfCircleAncPane6.getChildren().add(row.get(6));
+				for(int i=7; i<=11; i++) {
+					row.add(new NormalSquareScreen( (NormalSquare) board.getSquare(i)));
+					hBox2.getChildren().add(0, row.get(i));
+				}	
 	}
 	
 	public void resetToDefaultSquare() {
@@ -468,23 +481,42 @@ public class PlayScreenController {
 		if(squareId==12) squareId = 0;
 		if(squareId==-1)  squareId = 11;
 		return squareId;
-		
 	}
 	
     @FXML
-    void pauseBackClicked(MouseEvent event) {
+    void pauseBackClicked(MouseEvent event){
 
     }
-
+    
     @FXML
-    void pauseContinueClicked(MouseEvent event) {
+    void newGameBtnClicked(MouseEvent event){
+    	//set turn
+    	setTurn((int)(Math.random() * 2) + 1);
+    			
+    	//set player "Your turn"'s visible
+    	newTurn();
+    	
+    	hfCircleAncPane0.getChildren().clear();
+    	hfCircleAncPane6.getChildren().clear();
+    	hBox1.getChildren().clear();
+    	hBox2.getChildren().clear();
+    	
+    	match.resetAndInitBoard();
+    	
+    	row.clear();
+    	initBoardG();
+    	
     	playAncPane.setEffect(null);
     	pauseAncPane0.setVisible(false);
+    }
+    
+    @FXML
+    void pauseContinueClicked(MouseEvent event) {
+    	
     }
 
     @FXML
     void pauseImageClicked(MouseEvent event) {
-    	playAncPane.setEffect(new GaussianBlur());
-    	pauseAncPane0.setVisible(true);
+  
     }
 }
