@@ -2,7 +2,7 @@ package screen;
 
 import java.util.ArrayList;
 
-
+import javax.swing.text.html.ImageView;
 
 import boardgame.BoardGame;
 import javafx.animation.KeyFrame;
@@ -473,7 +473,13 @@ public class PlayScreenController {
 	
     @FXML
     void pauseBackClicked(MouseEvent event) {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+            Parent playScreen = loader.load();
+            Scene playScene = new Scene(playScreen);
+           
+            Stage stage = (Stage) ruleplayBtn.getScene().getWindow();
+            stage.setScene(playScene);
+            stage.show();
     }
 
     @FXML
