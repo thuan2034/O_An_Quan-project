@@ -6,7 +6,7 @@ import javafx.animation.*;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
@@ -15,9 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import match.Match;
-import screen.HalfCircleScreen;
-import screen.MenuScreen;
-import screen.NormalSquareScreen;
+import screen.*;
 import squares.*;
 
 public class PlayScreenController {
@@ -213,7 +211,6 @@ public class PlayScreenController {
 
 		PauseTransition delay = new PauseTransition(Duration.seconds(waitTime));
 		delay.setOnFinished(new EventHandler<ActionEvent>() {
-			@Override
 			public void handle(ActionEvent event) {
 
 				for(int i=1; i<=5; i++) {
@@ -432,7 +429,7 @@ public class PlayScreenController {
 		if(squareId==-1)  squareId = 11;
 		return squareId;
 	}
-	
+
 	private void backToMenu() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/screen/menu.fxml"));
         Parent playScreen = loader.load();
@@ -448,7 +445,7 @@ public class PlayScreenController {
 	@FXML
     void ExitBtnClicked(MouseEvent event) throws IOException {
 		backToMenu();
-    }
+	}
 	
     @FXML
     void pauseBackClicked(MouseEvent event) throws IOException{

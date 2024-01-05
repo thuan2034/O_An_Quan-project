@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane style="-fx-background-color: #e4ccbb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RuleController">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RuleController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="600.0" style="-fx-background-color: #e4ccbb;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="12.0">
          <content>
@@ -75,7 +75,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền sau đó là ô Quan hoặc 2 ô trống trở lên thì sẽ chuyển sang lượt của người chơi còn lại." wrappingWidth="631.419921875">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nếu liền so đó là ô Quan hoặc 2 ô trống trở lên thì sẽ chuyển sang lượt của người chơi còn lại." wrappingWidth="631.419921875">
                            <font>
                               <Font size="17.0" />
                            </font>

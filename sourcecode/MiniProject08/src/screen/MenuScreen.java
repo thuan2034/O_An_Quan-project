@@ -13,7 +13,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class MenuScreen extends Application{
-  
+
 	public static final double WIDTH = 1100;
 	public static final double HEIGHT = 700;
 	
@@ -24,6 +24,7 @@ public class MenuScreen extends Application{
 		try {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+
 			setScene(stage, root, WIDTH, HEIGHT);
 			stage.show();
 		}
@@ -72,7 +73,7 @@ public class MenuScreen extends Application{
 				}
 				
 			});
-
+			
 			scene.getRoot().getTransforms().setAll(scale);
 			stage.setScene(scene);
 			stage.setOnCloseRequest(event -> {
@@ -85,5 +86,5 @@ public class MenuScreen extends Application{
 	public static void main (String[] arg) {
 		launch(arg);
 	}
-	
+
 }
