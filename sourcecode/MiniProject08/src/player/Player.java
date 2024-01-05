@@ -17,4 +17,5 @@ private int playerID;
     public SimpleIntegerProperty getScore() {
     	return this.score;
     }
+    
 }
