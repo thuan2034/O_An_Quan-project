@@ -22,7 +22,6 @@ public abstract class Squares {
 		numberOfSmallGems = 0;
 	}
 	
-
 	public int getNumberOfSmallGems() {
 		return numberOfSmallGems;
 	}

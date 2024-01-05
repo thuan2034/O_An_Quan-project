@@ -1,6 +1,6 @@
 package screen;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import controller.PlayScreenController;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -12,7 +12,7 @@ import javafx.scene.text.*;
 import match.Match;
 import squares.NormalSquare;
 
-public class NormalSquareScreen extends AnchorPane{
+public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     private Rectangle rec = new Rectangle();
     private Label point = new Label();
     private AnchorPane squareAnchorPane = new AnchorPane();
@@ -21,15 +21,18 @@ public class NormalSquareScreen extends AnchorPane{
     private VBox vbox = new VBox();
     private VBox vboxSquare = new VBox();
     private HBox hbox = new HBox();
-    private ImageView imaVLeft = new ImageView(new Image(getClass().getResourceAsStream("lrArrow.png")));
-    private ImageView imaVRight = new ImageView(new Image(getClass().getResourceAsStream("lrArrow.png")));
+    private ImageView imaVLeft = new ImageView(new Image(getClass().getResourceAsStream("images\\lrArrow.png")));
+    private ImageView imaVRight = new ImageView(new Image(getClass().getResourceAsStream("images\\lrArrow.png")));
     private NormalSquare square = new NormalSquare();
-    public boolean isClicked = false;
+    private boolean isClicked = false;
     private Match match = PlayScreenController.match;
+    private PlayScreenController playController = new PlayScreenController();
     
-    public NormalSquareScreen(NormalSquare square) {
+    public NormalSquareScreen(NormalSquare square, PlayScreenController playController) {
     	this.square = square;
     
+    	this.playController = playController;
+    	
     	rec.setWidth(73);
     	rec.setHeight(73);
     	rec.setFill(Color.rgb(205, 161, 128));
@@ -70,7 +73,7 @@ public class NormalSquareScreen extends AnchorPane{
     			rec.setFill(Color.rgb(139, 90, 54));
     			point.setTextFill(Color.WHITE);
     			lrPane.setVisible(true);	
-    			MenuScreen.playController.resetToDefaultSquare();
+    			playController.resetToDefaultSquare();
     			isClicked = true;
     		}
     		else {
@@ -84,7 +87,7 @@ public class NormalSquareScreen extends AnchorPane{
     	imaVLeft.setFitHeight(20.0);
     	imaVLeft.setOnMouseClicked(event -> {
     		this.match.selectDirection(-1);
-    		this.getGemsInSquare();
+    		this.getGemsToSpreadG();
     	});
     	
     	imaVRight.setCursor(Cursor.HAND);
@@ -93,7 +96,7 @@ public class NormalSquareScreen extends AnchorPane{
     	imaVRight.setFitHeight(20.0);
     	imaVRight.setOnMouseClicked(event -> {
     		this.match.selectDirection(1);
-    		this.getGemsInSquare();
+    		this.getGemsToSpreadG();
     	});
     	
     	hbox.getChildren().add(imaVLeft);
@@ -119,6 +122,7 @@ public class NormalSquareScreen extends AnchorPane{
     	
     }
     
+    @Override
     public void resetToDefault() {
     	rec.setFill(Color.rgb(205, 161, 128));
 		point.setTextFill(Color.rgb(102, 66, 40));
@@ -126,18 +130,19 @@ public class NormalSquareScreen extends AnchorPane{
 		isClicked = false;
     }
     
+    @Override
     public void isSpreaded() {
     	rec.setFill(Color.rgb(139, 90, 54));
 		point.setTextFill(Color.WHITE);
     }
     
-    public void getGemsInSquare() {
+    
+    public void getGemsToSpreadG() {
     	match.selectSquare(square.getId());
     	match.getGemsInSquare(square.getId());
-    	squarePane.getChildren().clear();
-    	point.setText(""+square.getPoint());
+    	resetAfterGetG();
 		resetToDefault();
-		MenuScreen.playController.speardGems();
+		playController.speardGems();
     }
     
     public void resetCursor() {
@@ -156,13 +161,21 @@ public class NormalSquareScreen extends AnchorPane{
     	}
     }
     
+    @Override
     public void spreadGems() {
     	squarePane.getChildren().add(new Circle(4.0));
     	point.setText(""+square.getPoint());
     }
     
-    public void getGemsToPoint() {
+    @Override
+    public void resetAfterGetG() {
     	squarePane.getChildren().clear();
     	point.setText(""+square.getPoint());
 	}
+
+	public boolean isClicked() {
+		return isClicked;
+	}
+    
+    
 }

@@ -1,6 +1,5 @@
 package screen;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -10,7 +9,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import squares.HalfCircle;
 
-public class HalfCircleScreen extends AnchorPane{
+public class HalfCircleScreen extends AnchorPane implements SquareInterface{
 	private Arc arc = new Arc();
 	private Label point = new Label();
 	private VBox vbox = new VBox();
@@ -62,11 +61,13 @@ public class HalfCircleScreen extends AnchorPane{
     	this.getChildren().add(vbox);
 	}
 	
-	public void getGemsInSquare() {
+	@Override
+	public void resetAfterGetG() {
 		flowPane.getChildren().clear();
 		point.setText(""+hfC.getPoint());
     }
 	
+	@Override
 	public void spreadGems() {
 		if(hfC.getId()==0) {
 			flowPane.getChildren().add(new Circle(4.0));
@@ -77,18 +78,16 @@ public class HalfCircleScreen extends AnchorPane{
 		point.setText(""+hfC.getPoint());
     }
 	
-	public void getGemsToPoint() {
-    	flowPane.getChildren().clear();
-    	point.setText(""+hfC.getPoint());
-	}
-	
-	 public void isSpreaded() {
+	@Override
+	public void isSpreaded() {
 	    arc.setFill(Color.rgb(139, 90, 54));
 		point.setTextFill(Color.WHITE);
-	 }
+	}
 	 
-	 public void resetToDefault() {
+	@Override
+	public void resetToDefault() {
 	    arc.setFill(Color.rgb(205, 161, 128));
 		point.setTextFill(Color.rgb(102, 66, 40));
-	 }
+	}
+
 }

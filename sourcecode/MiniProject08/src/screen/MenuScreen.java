@@ -1,11 +1,14 @@
 package screen;
 
+import java.io.IOException;
+
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
@@ -15,17 +18,35 @@ public class MenuScreen extends Application{
 	public static final double HEIGHT = 700;
 	
 	public static double width, height;
-	public static PlayScreenController playController = new PlayScreenController();
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-			stage.setMinWidth(150.0);
-			stage.setMinHeight(150.0);
 			
-			Parent root = FXMLLoader.load(getClass().getResource("play.fxml"));
-
-			Scene scene = new Scene(root, WIDTH, HEIGHT);
+			Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+			setScene(stage, root, WIDTH, HEIGHT);
+			stage.show();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void quit(Stage stage) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Quit");
+        alert.setHeaderText("You're about to quit");
+        alert.setContentText("Do you want this ?");
+        if (alert.showAndWait().get()== ButtonType.OK){
+        	stage.close();
+        }
+	}
+	
+	 public static void setScene(Stage stage, Parent root, double w, double h) throws IOException {
+   	  stage.setMinWidth(150.0);
+			stage.setMinHeight(150.0);
+			if(w!=WIDTH && h != HEIGHT) w-=15; h-=37;
+			Scene scene = new Scene(root, w, h);
 
 			width = scene.getWidth()/600.0;
 			height = scene.getHeight()/400.0;
@@ -53,14 +74,13 @@ public class MenuScreen extends Application{
 			});
 
 			scene.getRoot().getTransforms().setAll(scale);
-			
 			stage.setScene(scene);
-			stage.show();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+			stage.setOnCloseRequest(event -> {
+				event.consume();
+				quit(stage);
+			});
+
+     }
 	
 	public static void main (String[] arg) {
 		launch(arg);

@@ -11,6 +11,16 @@ public class BoardGame {
 		initBoard();
 	}
 
+	//Khởi tạo board
+    public void initBoard() {
+    	for (int i=0; i<12; i++){
+			if (i == 0 || i == 6){
+				row.add(new HalfCircle());
+			}
+			else row.add(new NormalSquare()); 
+		}
+    }
+	
 	public boolean rowNoSmallGem(int turn) {
 		if (turn == 1) {
 			int sum=0;
@@ -40,17 +50,8 @@ public class BoardGame {
     	return row.get(id);
     }
     
+    //clear board
     public void resetBoard() {
     	row.clear();
-    }
-    
-    public void initBoard() {
-    	for (int i=0; i<12; i++){
-			if (i == 0 || i == 6){
-				row.add(new HalfCircle());
-			}
-			else row.add(new NormalSquare()); 
-		}
-    }
-    
+    }   
 }
