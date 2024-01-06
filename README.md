@@ -28,4 +28,4 @@
 * Tham gia viết Report 
 
 ## Link of demo video for the application
-<a href="https://drive.google.com/file/d/1loSrBv5bdSG_P7yL-m-PpKlz4xgKZ3qJ/view?usp=sharing">
+https://drive.google.com/file/d/1loSrBv5bdSG_P7yL-m-PpKlz4xgKZ3qJ/view?usp=sharing
