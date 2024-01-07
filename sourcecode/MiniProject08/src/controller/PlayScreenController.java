@@ -65,7 +65,7 @@ public class PlayScreenController {
 	public static Match match = new Match();
 	private static ArrayList<AnchorPane> row = new ArrayList<>();
 	private int squareId;
-	private final static double SPREAD_TIME = 0.5;
+	private final static double SPREAD_TIME = 0.1;
 	private final static double TURN_APPEAR_TIME = 1;
 	private int iRowNoGem;
 	private int playerId=1;
@@ -444,17 +444,17 @@ public class PlayScreenController {
 	
 	@FXML
     void ExitBtnClicked(MouseEvent event) throws IOException {
+		newGame();
 		backToMenu();
 	}
 	
     @FXML
     void pauseBackClicked(MouseEvent event) throws IOException{
+    	newGame();
     	backToMenu();
     }
     
-    @FXML
-    void newGameBtnClicked(MouseEvent event){
-    	
+    public void newGame() {
     	hfCircleAncPane0.getChildren().clear();
     	hfCircleAncPane6.getChildren().clear();
     	hBox1.getChildren().clear();
@@ -465,10 +465,27 @@ public class PlayScreenController {
     	row.clear();
     	initBoardG();
     	//set turn
+		point1Label.setText(""+match.getPlayerPoint(1).get());
+		point2Label.setText(""+match.getPlayerPoint(2).get());
+		
+		match.getPlayerPoint(1).addListener((observable, oldValue, newValue) -> {
+			point1Label.setText(""+match.getPlayerPoint(1).get());
+		});
+		
+		match.getPlayerPoint(2).addListener((observable, oldValue, newValue) -> {
+			point2Label.setText(""+match.getPlayerPoint(2).get());
+		});
+		
     	setTurn((int)(Math.random() * 2) + 1);
     			
     	//set player "Your turn"'s visible
     	newTurn();
+    }
+    
+    @FXML
+    void newGameBtnClicked(MouseEvent event){
+    	
+    	newGame();
     	
     	playAncPane.setEffect(null);
     	resultAncPane0.setVisible(false);
