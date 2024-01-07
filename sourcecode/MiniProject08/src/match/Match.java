@@ -51,10 +51,8 @@ public class Match {
 	
 	//khởi tạo player
 	public void initPlayer() {
-		Player player1= new Player(1);
-		Player player2= new Player(2);
-		player.add(player1);
-		player.add(player2);
+		player.add(new Player(1));
+		player.add(new Player(2));
 	}
 	
 	//lấy ra gem trong Normal Square để rải đá
