@@ -225,6 +225,7 @@ public class PlayScreenController {
 	}
 
 	private void changeColorWhenSpreadG(int squareId) {
+		squareId=convertSquareId(squareId);
 		squareId = convertSquareId(squareId);
 		if(squareId == 0 || squareId == 6) {
 			((HalfCircleScreen) row.get(squareId)).isSpreaded();
@@ -370,6 +371,7 @@ public class PlayScreenController {
 		}	
 			Timeline spreadGemTimeLine = new Timeline();
 			spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
+				iRowNoGem = convertSquareId(iRowNoGem);
 				match.spreadGems(iRowNoGem);
 				((NormalSquareScreen) row.get(iRowNoGem)).spreadGems();
 				
@@ -416,6 +418,7 @@ public class PlayScreenController {
 			
 	}
 	private void resetNumberOfGem(int squareId) {
+		squareId = convertSquareId(squareId);
 		match.resetNumberOfGem(squareId);
 		if(squareId == 0 || squareId == 6) {
 			((HalfCircleScreen) row.get(squareId)).resetAfterGetG();
