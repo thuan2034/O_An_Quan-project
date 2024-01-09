@@ -65,11 +65,6 @@ public class Match {
 	//reset số lượng đá trong Square sau khi ăn điểm
 	public void resetNumberOfGem(int squareId) {
 		board.getSquare(squareId).resetNumberOfGems();
-		
-		if(squareId==6||squareId==0) {
-			HalfCircle halfcircle = (HalfCircle) board.getSquare(squareId);
-			halfcircle.resetNumberOfGems();
-		}
 	}
 	
 	public void spreadGems(int squareId) {
