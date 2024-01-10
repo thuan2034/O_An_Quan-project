@@ -1,6 +1,8 @@
 package boardgame;
 
 import java.util.ArrayList;
+
+import exception.*;
 import squares.*;
 
 public class BoardGame {
@@ -8,11 +10,16 @@ public class BoardGame {
 	
 	public BoardGame() {
 		//prepare gems to play
-		initBoard();
+		try {
+			initBoard();
+		} catch (HaveBoardInGameException e) {
+
+		}
 	}
 
 	//Khởi tạo board
-    public void initBoard() {
+    public void initBoard() throws HaveBoardInGameException {
+    	if(row.size()>=12) throw new HaveBoardInGameException();
     	for (int i=0; i<12; i++){
 			if (i == 0 || i == 6){
 				row.add(new HalfCircle());
@@ -31,11 +38,11 @@ public class BoardGame {
 		}
 		else if(turn == 2) {
 			
-		int sum=0;
-		for (int i=7; i<=11; ++i) {
-			sum+=row.get(i).getPoint();
-		}
-		if (sum==0) return true;
+			int sum=0;
+			for (int i=7; i<=11; ++i) {
+				sum+=row.get(i).getPoint();
+			}
+			if (sum==0) return true;
 		}
 		return false;
 	}

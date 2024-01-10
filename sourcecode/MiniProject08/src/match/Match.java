@@ -2,6 +2,7 @@ package match;
 
 import java.util.ArrayList;
 import boardgame.BoardGame;
+import exception.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import player.Player;
 import squares.*;
@@ -16,7 +17,7 @@ public class Match {
     
     public Match() {
 		initPlayer();
-	}
+	}  
     
     public int getSquareId() {
     	return squareId;
@@ -42,11 +43,11 @@ public class Match {
 	}
     
     public void selectSquare(int id) {   
-  	  squareId = id;
+    	squareId = id;
   	}
     
   	public void selectDirection(int direction) {
-  		 this.direction = direction;
+  		this.direction = direction;
   	}
 	
 	//khởi tạo player
@@ -57,37 +58,49 @@ public class Match {
 	
 	//lấy ra gem trong Normal Square để rải đá
 	public void getGemsInSquare(int squareId) {
-		NormalSquare square=(NormalSquare) board.getSquare(squareId);
-		gemInHand = square.getNumberOfSmallGems();		
-		square.resetNumberOfGems();
+		try {
+			NormalSquare square=(NormalSquare) board.getSquare(squareId);
+			gemInHand = square.getNumberOfSmallGems();		
+			square.resetNumberOfGems();
+		}catch(ClassCastException e) {
+			
+		}
 	}
 	
 	//reset số lượng đá trong Square sau khi ăn điểm
 	public void resetNumberOfGem(int squareId) {
 		board.getSquare(squareId).resetNumberOfGems();
+		
 	}
 	
 	public void spreadGems(int squareId) {
 		board.getSquare(squareId).spreadGems();
 	}
 	
-	public int stopSpreadGem(int squareId) {
+	public void stopSpreadGem(int squareId) throws Exception {
 		
-		if(board.getSquare(squareId) instanceof HalfCircle) return -1;	//stop true 		//ô liền cuối là ô Quan
-	    if(board.getSquare(squareId).getPoint()!=0) return 0;			//stop false		//ô liền cuối có Dân
-
-	    if(board.getSquare(squareId).getPoint()==0 && board.getSquare(convertSquareId(squareId+direction)).getPoint()==0 ) return -1; //2 ô trống liền kề
+		//stop true 		//ô liền cuối là ô Quan
+		if(board.getSquare(squareId) instanceof HalfCircle) throw new StopSpreadGemException();	
+		if(board.getSquare(squareId).getPoint()==0 && board.getSquare(convertSquareId(squareId+direction)).getPoint()==0 )
+			throw new StopSpreadGemException(); //2 ô trống liền kề
+		
+		//stop false		//ô liền cuối có Dân
+	    if(board.getSquare(squareId).getPoint()!=0) throw new ContinueSpreadGemException();			
 
 	    //Ô liền cuối trống
-	    return 1; //player get point
+	    throw new GetPointException(); //player get point
 	}
 	
 	public void getPoint(int squareId, int playerId) {
+		try {
+			int pointEarn=board.getSquare(squareId).getPoint();
+			player.get(playerId-1).increScore(pointEarn);
 		
-		int pointEarn=board.getSquare(squareId).getPoint();
-		if(playerId > 0) player.get(playerId-1).increScore(pointEarn);
-	
-		resetNumberOfGem(squareId);
+			resetNumberOfGem(squareId);
+		}catch(IndexOutOfBoundsException e) {
+			
+		}
+		
 	}
 	
 	public int convertSquareId(int id) {
@@ -97,8 +110,16 @@ public class Match {
 	}
 	
 	public boolean rowNoGem(int turn) { 
-		if(board.rowNoSmallGem(turn)) player.get(turn-1).decreScore(5);
 		return board.rowNoSmallGem(turn);
+	}
+	
+	boolean decre = false;
+	
+	public void decrePlayerScore(int turn) {
+		if(!decre) {
+			player.get(turn-1).decreScore(5);
+			decre = true;
+		}
 	}
 	
 	public boolean stopMatch() {
@@ -110,16 +131,24 @@ public class Match {
 	}
 	
 	public void newTurn() {
+		decre = false;
 		if(turn.get()==1)
 			turn.set(2); 
 		else turn.set(1);
 	}
 	
-	public void resetAndInitBoard() {
+	public void resetBoard() {
 		board.resetBoard();	//reset board
-		board.initBoard();	//khởi tạo board
 		player.clear();		//reset player
-		initPlayer();		//khởi tạo player
+	}
+	
+	public void initBoard() throws HaveBoardInGameException {
+		try {
+			board.initBoard();	//khởi tạo board
+			initPlayer();		//khởi tạo player
+		} catch (HaveBoardInGameException e) {
+			throw e;
+		}	
 	}
 }
 

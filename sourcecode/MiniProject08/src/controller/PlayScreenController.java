@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import exception.*;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -120,6 +122,11 @@ public class PlayScreenController {
 	}
 	
 	private void initBoardG() {
+		try {
+			match.initBoard();
+		}catch(HaveBoardInGameException e) {
+			
+		}
 		//set boardgame
 		row.add(new HalfCircleScreen( (HalfCircle) match.getSquare(0)));
 		hfCircleAncPane0.getChildren().add(row.get(0));
@@ -137,19 +144,24 @@ public class PlayScreenController {
 	}
 	
 	private void resetToDefaultColor(int squareId) {
-		if(squareId == 0 || squareId == 6) {
+		if(row.get(squareId) instanceof HalfCircleScreen) {
 			((HalfCircleScreen) row.get(squareId)).resetToDefault();
 		}else ((NormalSquareScreen) row.get(squareId)).resetToDefault();
 	}
 
 	public void resetToDefaultSquare() {
 		for(int i=0; i < row.size(); i++) {
-			if(row.get(i) instanceof NormalSquareScreen) {
+			
+			try {	
 				NormalSquareScreen squareScreen = (NormalSquareScreen) row.get(i);
 				if( squareScreen.isClicked()) {
 					squareScreen.resetToDefault();
 				}
 			}
+			catch(ClassCastException e) {
+				
+			}
+			
 		}
 	}
 
@@ -181,7 +193,7 @@ public class PlayScreenController {
 			turnAncPane.setVisible(false);
 		});
 	}
-	
+
 	private void newTurn() {
 		turnAnnounce();
 		if(match.getTurn().get() == 1) {
@@ -195,15 +207,17 @@ public class PlayScreenController {
 			turnLabel.setText("PLAYER 2");		
 		}
 		
-		double waitTime = 0;
+		double waitTime = 0; 
 		if(match.rowNoGem(match.getTurn().get())) {
+			
 			waitTime = SPREAD_TIME*7 + TURN_APPEAR_TIME*3;
 			PauseTransition delay = new PauseTransition(Duration.seconds(TURN_APPEAR_TIME*3));
 			delay.setOnFinished(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
-		
-					spreadRowNoGem(match.getTurn().get());
-					
+
+						match.decrePlayerScore(match.getTurn().get());
+						spreadRowNoGem(match.getTurn().get());
+
 				}
 			});
 			delay.play();
@@ -225,9 +239,9 @@ public class PlayScreenController {
 	}
 
 	private void changeColorWhenSpreadG(int squareId) {
-		squareId=convertSquareId(squareId);
 		squareId = convertSquareId(squareId);
-		if(squareId == 0 || squareId == 6) {
+
+		if(row.get(squareId) instanceof HalfCircleScreen) {
 			((HalfCircleScreen) row.get(squareId)).isSpreaded();
 		}else ((NormalSquareScreen) row.get(squareId)).isSpreaded();
 		squareId = convertSquareId(squareId - match.getDirection());
@@ -247,7 +261,7 @@ public class PlayScreenController {
 			match.spreadGems(squareId);
 			
 			changeColorWhenSpreadG(squareId);
-			if(squareId == 0 || squareId == 6) {
+			if(row.get(squareId) instanceof HalfCircleScreen) {
 				((HalfCircleScreen) row.get(squareId)).spreadGems();
 			}else ((NormalSquareScreen) row.get(squareId)).spreadGems();
 		}));
@@ -263,19 +277,28 @@ public class PlayScreenController {
 			    	squareId+=direction;
 					squareId=convertSquareId(squareId);
 					changeColorWhenSpreadG(squareId);
-					
-			if(match.stopSpreadGem(squareId)==0) {		//stop false
+			
+			try {
+				match.stopSpreadGem(squareId);
+			}
+			catch(ContinueSpreadGemException e1) {
 				PauseTransition delay = new PauseTransition(Duration.seconds(SPREAD_TIME));
 				delay.setOnFinished(new EventHandler<ActionEvent>() {
 				    @Override
 				    public void handle(ActionEvent event) {
-				    	changeColorWhenSpreadG(squareId);
-				       ((NormalSquareScreen) row.get(squareId)).getGemsToSpreadG();
+				    	
+				    	try {
+				    		((NormalSquareScreen) row.get(squareId)).getGemsToSpreadG();
+						}
+						catch(ClassCastException e) {
+							
+						}
+				       
 				    }
 				});
 				delay.play();
 			}
-			else if(match.stopSpreadGem(squareId)==1) {//player get point
+			catch(GetPointException e2) {
 				PauseTransition delay = new PauseTransition(Duration.seconds(SPREAD_TIME));
 				delay.setOnFinished(new EventHandler<ActionEvent>() {
 				    @Override
@@ -292,13 +315,16 @@ public class PlayScreenController {
 				    }
 				});
 				delay.play();
-			}else { 
-
+			} 
+			catch(StopSpreadGemException e3) {
 				resetToDefaultColor(squareId);
 				if(!match.stopMatch()) match.newTurn(); 
 				else {
 					getScoreInBoard();
 				}
+			}
+			catch (Exception e) {
+				
 			}
 			}
 			});
@@ -372,10 +398,20 @@ public class PlayScreenController {
 			Timeline spreadGemTimeLine = new Timeline();
 			spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
 				iRowNoGem = convertSquareId(iRowNoGem);
-				match.spreadGems(iRowNoGem);
-				((NormalSquareScreen) row.get(iRowNoGem)).spreadGems();
-				
 				changeColorWhenSpreadG(iRowNoGem);
+
+				try {
+					
+					if(match.getSquare(iRowNoGem).getPoint() == 0) {
+						match.spreadGems(iRowNoGem);
+						((NormalSquareScreen) row.get(iRowNoGem)).spreadGems();
+					}
+					
+				}
+				catch(ClassCastException e) {
+					
+				}
+				
 				iRowNoGem++;
 			}));
 			spreadGemTimeLine.setCycleCount(5);
@@ -393,8 +429,17 @@ public class PlayScreenController {
 			Timeline spreadGemTimeLine = new Timeline();
 			spreadGemTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(SPREAD_TIME), (ActionEvent event1) -> {
 				changeColorWhenSpreadG(iRowNoGem);
-				match.getPoint(iRowNoGem, playerId);
-				((NormalSquareScreen) row.get(iRowNoGem)).resetAfterGetG();
+				
+				try {
+					
+					match.getPoint(iRowNoGem, playerId);
+					((NormalSquareScreen) row.get(iRowNoGem)).resetAfterGetG();
+					
+				}
+				catch(ClassCastException e) {
+					
+				}
+				
 				if(iRowNoGem==5) {
 					resetToDefaultColor(iRowNoGem);
 					iRowNoGem=7;
@@ -417,10 +462,11 @@ public class PlayScreenController {
 			});
 			
 	}
+	
 	private void resetNumberOfGem(int squareId) {
 		squareId = convertSquareId(squareId);
 		match.resetNumberOfGem(squareId);
-		if(squareId == 0 || squareId == 6) {
+		if(row.get(squareId) instanceof HalfCircleScreen) {
 			((HalfCircleScreen) row.get(squareId)).resetAfterGetG();
 		}else {
 			((NormalSquareScreen) row.get(squareId)).resetAfterGetG();
@@ -440,32 +486,38 @@ public class PlayScreenController {
         double height = backBtn.getScene().getWindow().getHeight();
         double width = backBtn.getScene().getWindow().getWidth();
 
-        Stage stage = (Stage) backBtn.getScene().getWindow();
+        Stage stage = (Stage) backBtn.getScene().getWindow();  
         MenuScreen.setScene(stage, playScreen, width, height);
         stage.show();
 	}
 	
 	@FXML
     void ExitBtnClicked(MouseEvent event) throws IOException {
-		newGame();
+		resetBoard();
 		backToMenu();
 	}
 	
     @FXML
     void pauseBackClicked(MouseEvent event) throws IOException{
-    	newGame();
+    	resetBoard();
     	backToMenu();
     }
     
-    public void newGame() {
+    private void resetBoard() {
     	hfCircleAncPane0.getChildren().clear();
     	hfCircleAncPane6.getChildren().clear();
     	hBox1.getChildren().clear();
     	hBox2.getChildren().clear();
     	
-    	match.resetAndInitBoard();
+    	match.resetBoard();
     	
     	row.clear();
+    }
+    
+    public void newGame() {
+    	
+    	resetBoard();
+    	
     	initBoardG();
     	//set turn
 		point1Label.setText(""+match.getPlayerPoint(1).get());
@@ -479,8 +531,8 @@ public class PlayScreenController {
 			point2Label.setText(""+match.getPlayerPoint(2).get());
 		});
 		
-    	setTurn((int)(Math.random() * 2) + 1);
-    			
+		setTurn((int)(Math.random() * 2) + 1);
+		
     	//set player "Your turn"'s visible
     	newTurn();
     }

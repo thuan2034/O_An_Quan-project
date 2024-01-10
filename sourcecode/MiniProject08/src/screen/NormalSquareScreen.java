@@ -27,6 +27,7 @@ public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     private boolean isClicked = false;
     private Match match = PlayScreenController.match;
     private PlayScreenController playController = new PlayScreenController();
+    private int numberOfSmallGem = 0;
     
     public NormalSquareScreen(NormalSquare square, PlayScreenController playController) {
     	this.square = square;
@@ -48,6 +49,7 @@ public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     	squarePane.setHgap(0.5); squarePane.setVgap(0.5);
     	
     	for(int i=0; i<square.getNumberOfSmallGems(); i++) {
+    		numberOfSmallGem++;
     		squarePane.getChildren().add(new Circle(4.0));
     	}
     	vboxSquare.getChildren().add(squarePane);
@@ -163,13 +165,17 @@ public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     
     @Override
     public void spreadGems() {
-    	squarePane.getChildren().add(new Circle(4.0));
+    	for(int i=0; i<square.getNumberOfSmallGems()-numberOfSmallGem; i++) {
+    		squarePane.getChildren().add(new Circle(4.0));
+    		numberOfSmallGem++;
+    	}
     	point.setText(""+square.getPoint());
     }
     
     @Override
     public void resetAfterGetG() {
     	squarePane.getChildren().clear();
+    	numberOfSmallGem=0;
     	point.setText(""+square.getPoint());
 	}
 
