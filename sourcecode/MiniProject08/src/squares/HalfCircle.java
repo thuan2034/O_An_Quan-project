@@ -8,6 +8,7 @@ public class HalfCircle extends Squares{
 	}
 	
 	public void resetNumberOfGems(){
+		super.resetNumberOfGems();
 		numberOfBigGems = 0;
 	}
 	

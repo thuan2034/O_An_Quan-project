@@ -15,6 +15,7 @@ public class HalfCircleScreen extends AnchorPane implements SquareInterface{
 	private VBox vbox = new VBox();
 	private FlowPane flowPane = new FlowPane();
 	private HalfCircle hfC = new HalfCircle();
+	private int numberOfSmallGem = 0;
 	
 	public HalfCircleScreen(HalfCircle hfC) {
 		Group group = new Group();
@@ -64,16 +65,20 @@ public class HalfCircleScreen extends AnchorPane implements SquareInterface{
 	@Override
 	public void resetAfterGetG() {
 		flowPane.getChildren().clear();
+		numberOfSmallGem=0;
 		point.setText(""+hfC.getPoint());
     }
 	
 	@Override
 	public void spreadGems() {
-		if(hfC.getId()==0) {
-			flowPane.getChildren().add(new Circle(4.0));
-		}
-		else if(hfC.getId()==6) {
-			flowPane.getChildren().add(0, new Circle(4.0));
+		for(int i=0; i<hfC.getNumberOfSmallGems()-numberOfSmallGem; i++) {
+			if(hfC.getId()==0) {
+				flowPane.getChildren().add(new Circle(4.0));
+			}
+			else if(hfC.getId()==6) {
+				flowPane.getChildren().add(0, new Circle(4.0));
+			}
+			numberOfSmallGem++;	
 		}
 		point.setText(""+hfC.getPoint());
     }
