@@ -23,9 +23,10 @@ public class MenuScreenController {
 
     @FXML
     void playBtnClicked(MouseEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/screen/play.fxml"));
-
+ 
         Stage stage = (Stage) playBtn.getScene().getWindow();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/screen/play.fxml"));
         
         double height = playBtn.getScene().getWindow().getHeight();
         double width = playBtn.getScene().getWindow().getWidth();
