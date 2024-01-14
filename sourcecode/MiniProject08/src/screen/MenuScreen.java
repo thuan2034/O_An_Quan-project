@@ -26,6 +26,10 @@ public class MenuScreen extends Application{
 			Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
 
 			setScene(stage, root, WIDTH, HEIGHT);
+			stage.setOnCloseRequest(event -> {
+				event.consume();
+				quit(stage);
+			});
 			stage.show();
 		}
 		catch(Exception e) {
@@ -46,7 +50,9 @@ public class MenuScreen extends Application{
 	 public static void setScene(Stage stage, Parent root, double w, double h) throws IOException {
    	  stage.setMinWidth(150.0);
 			stage.setMinHeight(150.0);
+			
 			if(w!=WIDTH && h != HEIGHT) w-=15; h-=37;
+			
 			Scene scene = new Scene(root, w, h);
 
 			width = scene.getWidth()/600.0;
@@ -76,10 +82,6 @@ public class MenuScreen extends Application{
 			
 			scene.getRoot().getTransforms().setAll(scale);
 			stage.setScene(scene);
-			stage.setOnCloseRequest(event -> {
-				event.consume();
-				quit(stage);
-			});
 
      }
 	

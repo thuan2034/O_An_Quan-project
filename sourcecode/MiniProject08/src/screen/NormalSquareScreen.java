@@ -12,7 +12,7 @@ import javafx.scene.text.*;
 import match.Match;
 import squares.NormalSquare;
 
-public class NormalSquareScreen extends AnchorPane implements SquareInterface{
+public class NormalSquareScreen extends SquareScreen{
     private Rectangle rec = new Rectangle();
     private Label point = new Label();
     private AnchorPane squareAnchorPane = new AnchorPane();
@@ -57,7 +57,6 @@ public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     	vboxSquare.setAlignment(Pos.CENTER);
     	vboxSquare.setMaxWidth(60.0);
     	vboxSquare.setMaxHeight(60.0);
-    	//vboxSquare.setStyle ("-fx-background-color: blue");
     	
     	squareAnchorPane.setLeftAnchor(vboxSquare, 10.0);
     	squareAnchorPane.setRightAnchor(vboxSquare, 10.0);
@@ -144,7 +143,7 @@ public class NormalSquareScreen extends AnchorPane implements SquareInterface{
     	match.getGemsInSquare(square.getId());
     	resetAfterGetG();
 		resetToDefault();
-		playController.speardGems();
+		playController.spreadGems();
     }
     
     public void resetCursor() {

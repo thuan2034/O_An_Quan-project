@@ -9,7 +9,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import squares.HalfCircle;
 
-public class HalfCircleScreen extends AnchorPane implements SquareInterface{
+public class HalfCircleScreen extends SquareScreen{
 	private Arc arc = new Arc();
 	private Label point = new Label();
 	private VBox vbox = new VBox();
